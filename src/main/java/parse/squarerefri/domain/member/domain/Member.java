@@ -1,6 +1,7 @@
-package parse.squarerefri.domain;
+package parse.squarerefri.domain.member.domain;
 
 import lombok.Getter;
+import parse.squarerefri.domain.manage.domain.Management;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
 
-    @Column(columnDefinition = "char(1) default '1'")
+    @Column(columnDefinition = "char(1) default '0'")
     private Character delFlag;
 
     @OneToMany(mappedBy = "member")

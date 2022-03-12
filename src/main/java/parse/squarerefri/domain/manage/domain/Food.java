@@ -1,4 +1,4 @@
-package parse.squarerefri.domain;
+package parse.squarerefri.domain.manage.domain;
 
 import lombok.Getter;
 import lombok.Setter;
