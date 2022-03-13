@@ -55,14 +55,12 @@ public class Management {
 
     //==생성 메서드==//
     public static Management createManage(Member member, String foodName, Food food, LocalDate sellbydate
-            , LocalDate usebydate, ManageStatus status, StorageStatus storageStatus) {
+            , StorageStatus storageStatus) {
         Management manage = new Management();
         manage.setMember(member);
         manage.setFoodName(foodName);
         manage.setFood(food);
         manage.setSellbydate(sellbydate);
-        manage.setUsebydate(usebydate);
-        manage.setStatus(status);
         manage.setStorageStatus(storageStatus);
 
         return manage;
@@ -75,14 +73,12 @@ public class Management {
     }
 
     //소비기한 계산
-    public LocalDate mathUseByDate() {
-        LocalDate useByDate = LocalDate.now();
+    public void mathUseByDate() {
         if (storageStatus == StorageStatus.FRIDGE) {
-            useByDate = useByDate.plusDays(food.getJudgeUsdFridge());
+            this.setUsebydate(LocalDate.now().plusDays(food.getJudgeUsdFridge()));
         } else if (storageStatus == StorageStatus.FROZEN) {
-            useByDate = useByDate.plusDays(food.getJudgeUsdFrozen());
+            this.setUsebydate(LocalDate.now().plusDays(food.getJudgeUsdFrozen()));
         }
-        return useByDate;
     }
 
     //상품 상태 체크
