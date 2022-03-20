@@ -2,12 +2,14 @@ package parse.squarerefri.domain.manage.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import parse.squarerefri.domain.manage.model.ManageInput;
 import parse.squarerefri.domain.member.domain.Member;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Locale;
 
 @Entity
 @Getter
@@ -40,7 +42,7 @@ public class Management {
     private ManageStatus status; // 식품상태 [GOOD, FINE, BAD]
 
     @Enumerated(EnumType.STRING)
-    private StorageStatus storageStatus; // 보관상태 [FRIDGE, FROZEN]
+    private StorageStatus storageStatus; // 보관상태 [FRIDGE, FREEZER]
 
     //==연관관계 메서드==//
     public void setMember(Member member) {
@@ -54,13 +56,13 @@ public class Management {
     }
 
     //==생성 메서드==//
-    public static Management createManage(Member member, String foodName, Food food, LocalDate sellbydate
+    public static Management createManage(Member member, Food food, ManageInput parameter
             , StorageStatus storageStatus) {
         Management manage = new Management();
         manage.setMember(member);
-        manage.setFoodName(foodName);
+        manage.setFoodName(parameter.getFoodName());
         manage.setFood(food);
-        manage.setSellbydate(sellbydate);
+        manage.setSellbydate(parameter.getSellbydate());
         manage.setStorageStatus(storageStatus);
 
         return manage;
@@ -76,7 +78,7 @@ public class Management {
     public void mathUseByDate() {
         if (storageStatus == StorageStatus.FRIDGE) {
             this.setUsebydate(LocalDate.now().plusDays(food.getJudgeUsdFridge()));
-        } else if (storageStatus == StorageStatus.FROZEN) {
+        } else if (storageStatus == StorageStatus.FREEZER) {
             this.setUsebydate(LocalDate.now().plusDays(food.getJudgeUsdFrozen()));
         }
     }
@@ -85,12 +87,11 @@ public class Management {
     public void checkStatus() {
         if (LocalDate.now().isBefore(usebydate)) {
             this.setStatus(ManageStatus.GOOD);
-        } else if (LocalDate.now().isBefore(sellbydate)) {
+        } else if (LocalDate.now().isBefore(sellbydate)
+                && LocalDate.now().isAfter(usebydate)) {
             this.setStatus(ManageStatus.FINE);
         } else {
             this.setStatus(ManageStatus.BAD);
         }
     }
-
-
 }

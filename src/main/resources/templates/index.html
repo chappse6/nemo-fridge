@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/layout}"
+>
+<head>
+  <!--css,JS 추가영역-->
+</head>
+<div layout:fragment="content">
+  <div class="main row row-cols-lg-2 row-cols-1">
+    <div class="fridge-part col" th:replace="fridge :: fridge"></div>
+    <div class="info-part col">
+      <img src="../img/fridgeAni.png" style="max-width: 500px" alt="fridge"/>
+      <!-- null의 경우 empty 표시 -->
+    </div>
+  </div>
+</div>
+</html>

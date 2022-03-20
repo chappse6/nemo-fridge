@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ManageRepositoryImpl implements ManageRepository {
 
-    private EntityManager em;
+    private final EntityManager em;
 
     @Override
     public void save(Management management) {
@@ -28,13 +28,12 @@ public class ManageRepositoryImpl implements ManageRepository {
     }
 
     @Override
-    public List<Management> findAll(String memberId, String foodType, StorageStatus storageStatus) {
-        return em.createQuery("select a from Management a where a.member = :memberId and" +
-                        " a.food = :foodType and " +
+    public List<Management> findAll(String memberId, StorageStatus storageStatus) {
+        return em.createQuery("select a from Management as a where" +
+                        " a.member = :memberId and" +
                         " a.storageStatus = :storageStatus and" +
                         " a.delFlag = '0'", Management.class)
                 .setParameter("memberId", memberId)
-                .setParameter("foodType", foodType)
                 .setParameter("storageStatus", storageStatus)
                 .getResultList();
     }

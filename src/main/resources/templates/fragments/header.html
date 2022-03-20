@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="header">
+    <div class="container">
+        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom border-light">
+            <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+                <h1 style="color: #6c757d">nemo<br/>fridge</h1>
+            </a>
+
+            <div class="col-md-3 text-end">
+                <button type="button" onclick="location.href='/member/login'"  class="btn btn-outline-secondary me-2">Login</button>
+                <button type="button" onclick="location.href='/member/register'" class="btn btn-secondary">Sign-up</button>
+            </div>
+        </header>
+    </div>
+</div>
+</html>

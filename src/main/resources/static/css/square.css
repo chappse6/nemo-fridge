@@ -1,0 +1,20 @@
+@font-face {
+    src: url("../font/Cafe24Ohsquareair.ttf") format('truetype');
+    font-family: 'ohsquare';
+}
+
+body {
+    font-family: 'ohsquare';
+}
+
+.main {
+    margin: 10% 0% 10% 0%;
+}
+
+.fridgeImg {
+    text-align: center;
+}
+
+.fridgeImg img {
+    max-width: 300px;
+}

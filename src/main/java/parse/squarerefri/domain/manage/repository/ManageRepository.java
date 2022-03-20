@@ -11,7 +11,7 @@ public interface ManageRepository {
 
     Management findOne(Long id);
 
-    List<Management> findAll(String memberId, String foodType, StorageStatus storageStatus);
+    List<Management> findAll(String memberId, StorageStatus storageStatus);
 
     Food findOneInFood(String id);
 

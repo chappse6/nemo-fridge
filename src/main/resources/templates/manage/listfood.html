@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/layout}"
+>
+<head>
+    <!--css,JS 추가영역-->
+</head>
+<div layout:fragment="content">
+    <div class="container">
+        <div class="main row row-cols-lg-2 row-cols-1">
+            <div class="fridge-part col" th:replace="fridge :: fridge"></div>
+            <div class="info-part col">
+                <th:block th:if="${managements != null}">
+                    <div class="row row-cols-3">
+                        <div class="col" th:each="manage : ${managements}">
+                            <div th:text="${manage.foodName}"></div>
+                            <div th:text="${manage.status}"></div>
+                            <div th:text="${manage.sellbydate}"></div>
+                            <div th:text="${manage.usebydate}"></div>
+                        </div>
+
+                    </div>
+                </th:block>
+                <!-- null의 경우 empty 표시 -->
+            </div>
+        </div>
+    </div>
+</div>
+</html>
