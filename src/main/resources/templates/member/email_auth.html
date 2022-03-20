@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/layout}"
+>
+<head>
+    <!--css,JS 추가영역-->
+</head>
+<div layout:fragment="content">
+    <div class="container">
+        <div class="login">
+            <div th:if="${result eq true}">
+                <p>회원님의 계정이 활성화 되었습니다.</p>
+            </div>
+
+            <div th:if="${result eq false}">
+                <p>회원님의 계정 활성화에 실패하였습니다.</p>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
