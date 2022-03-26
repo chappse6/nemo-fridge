@@ -8,8 +8,36 @@
     <!--css,JS 추가영역-->
 </head>
 <div layout:fragment="content">
-    <div style="border: 1px solid red">
-        addfood.html 입니다. 즉 컨텐츠 영역
+    <div class="container">
+        <div class="main">
+            <div class="info-part">
+                <form method="post">
+                    <div>
+                        <input type="text" name="storageStatus" placeholder="냉냉고/냉동고" list="storageList" required />
+                        <datalist id="storageList">
+                            <option value="FRIDGE">냉장</option>
+                            <option value="FREEZER">냉동</option>
+                        </datalist>
+                    </div>
+
+                    <div>
+                        <input type="text" name="foodName" placeholder="제품 이름" required />
+                    </div>
+
+                    <div>
+                        <input type="text" name="foodType" placeholder="제품 종류" required />
+                    </div>
+
+                    <div>
+                        <input type="date" name="sellbydateString" placeholder="유통기한" required />
+                    </div>
+
+                    <div>
+                        <button type="submit">추가</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 </html>

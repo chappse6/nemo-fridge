@@ -6,7 +6,7 @@
         xmlns="http://www.w3.org/1999/html">
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <link rel="stylesheet" href="../css/bootstrap.css"/>
     <link rel="stylesheet" href="../css/square.css"/>
 
@@ -16,10 +16,26 @@
     <script src="../js/bootstrap.js"></script>
 </head>
 <body>
-<div th:replace="fragments/header :: header"></div>
 
-<div layout:fragment="content"></div>
+<div class="layout">
 
-<div th:replace="fragments/footer :: footer"></div>
+    <div th:replace="fridge :: fridge"></div>
+
+    <div class="main-content">
+        <div th:replace="fragments/header :: header"></div>
+
+        <div class="container">
+            <div class="main">
+                <div class="info-part">
+                    <div class="info-inner">
+                        <div layout:fragment="content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div th:replace="fragments/footer :: footer"></div>
+    </div>
+</div>
 </body>
 </html>

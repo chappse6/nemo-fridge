@@ -9,9 +9,8 @@
 </head>
 <div layout:fragment="content">
     <div class="container">
-        <div class="main row row-cols-lg-2 row-cols-1">
-            <div class="fridge-part col" th:replace="fridge :: fridge"></div>
-            <div class="info-part col">
+        <div class="main">
+            <div class="info-part">
                 <th:block th:if="${managements != null}">
                     <div class="row row-cols-3">
                         <div class="col" th:each="manage : ${managements}">
@@ -20,10 +19,15 @@
                             <div th:text="${manage.sellbydate}"></div>
                             <div th:text="${manage.usebydate}"></div>
                         </div>
-
                     </div>
                 </th:block>
                 <!-- null의 경우 empty 표시 -->
+                <th:block th:if="${managements == null}">
+                    <div>empty</div>
+                </th:block>
+                <div>
+                    <button type="button" onclick="location.href='/manage/add'"  class="btn btn-outline-dark me-2">+ 추가</button>
+                </div>
             </div>
         </div>
     </div>

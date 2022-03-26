@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<div th:fragment="fridge" class="fridgeContent">
-    <div class="fridgeImg">
-        <a href="#">
-            <img src="../img/freezerGradientGrain.png" alt="freezer"/>
+<div th:fragment="fridge" class="fridge-content">
+        <a href="/FREEZER/list">
+            <div class="fridgeset fridgeA">
+                <div class="freezer-text">
+                    냉동고
+                </div>
+            </div>
         </a>
-    </div>
-    <div class="fridgeImg">
-        <a href="#">
-            <img src="../img/fridgeGradientGrain.png" alt="fridge"/>
+        <a href="/FRIDGE/list">
+            <div class="fridgeset fridgeB">
+                <div class="fridge-text">
+                    냉장고
+                </div>
+            </div>
         </a>
-    </div>
 </div>
 </html>

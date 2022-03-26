@@ -1,5 +1,11 @@
 @font-face {
     src: url("../font/Cafe24Ohsquareair.ttf") format('truetype');
+    font-weight: normal;
+    font-family: 'ohsquare';
+}
+@font-face {
+    src: url("../font/Cafe24Ohsquare.ttf") format('truetype');
+    font-weight: bold;
     font-family: 'ohsquare';
 }
 
@@ -8,13 +14,91 @@ body {
 }
 
 .main {
-    margin: 10% 0% 10% 0%;
+    margin: 5% 0% 5% 0%;
 }
 
-.fridgeImg {
+.layout {
+    display: flex;
+}
+
+.fridge-content {
+    position: sticky;
+    width: 25%;
+    height: 100vh;
+    top: 0;
+}
+
+.fridge-content .fridgeset {
+    border-right: solid;
+    border-color: var(--bs-line-color);
+    color: #70777e;
+}
+
+.fridge-content .fridgeset:hover {
+    color: var(--bs-primary);
+    border-right-width: 5px;
+    border-right-color: var(--bs-primary);
+}
+
+.fridge-content .fridgeA{
+    height: 40vh;
+    border-bottom: solid;
+    border-color: var(--bs-line-color);
+}
+
+.fridge-content .fridgeB{
+    height: 60vh;
+}
+
+.fridge-content .fridgeset .freezer-text {
+    position: absolute;
+    right: 10px;
+    bottom: 61%;
+}
+
+.fridge-content .fridgeset .fridge-text {
+    position: absolute;
+    right: 10px;
+    bottom: 56.5%;
+}
+
+.main-content {
+    position: relative;
+    width: 75%;
+}
+
+.header-content {
+    padding: 20px;
+    border-bottom: solid;
+    border-color: var(--bs-line-color);
+}
+
+.title-icon {
+    font-family: ohsquare;
+    font-weight: bold;
+    font-size: 2.5em;
+}
+
+.info-part {
+    display: flex;
+    min-height: 50vh;
+}
+
+.info-inner {
+    margin: auto;
     text-align: center;
 }
 
-.fridgeImg img {
-    max-width: 300px;
+
+.footer {
+    border-top: solid;
+    border-color: var(--bs-line-color);
+    padding: 5px;
+    text-align: center;
+}
+
+.footer .copy-right {
+    color: #70777e;
+    font-size: 1em;
+    font-family:D2Coding;
 }
