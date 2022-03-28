@@ -3,6 +3,7 @@
     font-weight: normal;
     font-family: 'ohsquare';
 }
+
 @font-face {
     src: url("../font/Cafe24Ohsquare.ttf") format('truetype');
     font-weight: bold;
@@ -11,6 +12,11 @@
 
 body {
     font-family: 'ohsquare';
+}
+
+a {
+    text-decoration-line: none;
+    color: var(--bs-primary);
 }
 
 .main {
@@ -40,13 +46,13 @@ body {
     border-right-color: var(--bs-primary);
 }
 
-.fridge-content .fridgeA{
+.fridge-content .fridgeA {
     height: 40vh;
     border-bottom: solid;
     border-color: var(--bs-line-color);
 }
 
-.fridge-content .fridgeB{
+.fridge-content .fridgeB {
     height: 60vh;
 }
 
@@ -91,14 +97,88 @@ body {
 
 
 .footer {
+    width: 100%;
     border-top: solid;
     border-color: var(--bs-line-color);
-    padding: 5px;
-    text-align: center;
+    padding: 7px;
+    color: #70777e;
+    align-items: center;
+    display: flex;
 }
 
 .footer .copy-right {
+    font-size: 0.8em;
+    font-family: Barlow;
+    margin: 0;
+}
+
+/*
+manage list
+ */
+
+.main-manage {
+    width: 65vw;
+}
+
+.manage-storage {
+    text-align: left;
+    margin-left: 20px;
+}
+
+.manage-list {
+    background-color: #dbead5;
+    min-height: 60vh;
+    padding: 1px;
+}
+
+.manage-one {
+    float: left;
+    width: 150px;
+    height: 150px;
+    background-color: white;
+    border-radius: 20%;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.manage-one .foodname {
+    height: 50px;
+    align-items: center;
+    display: flex;
+}
+
+.manage-one .circle {
+    --bs-gutter-x: 0;
+    margin: 0;
+    width: 7px;
+    height: 7px;
+    border: 7px solid;
+    border-radius: 100%;
+}
+
+.circle-green {
+    border-color: green !important;
+}
+
+.circle-yellow {
+    border-color: #ead700 !important;
+}
+
+.circle-red {
+    border-color: red !important;
+}
+
+.close {
     color: #70777e;
-    font-size: 1em;
-    font-family:D2Coding;
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    width: 5px;
+    height: 5px;
+}
+
+.close:hover {
+    color: black;
 }

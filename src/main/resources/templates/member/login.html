@@ -10,26 +10,30 @@
 <div layout:fragment="content">
     <div class="container">
         <div class="login">
-            <h1>회원 로그인</h1>
+            <h1 class="h2 mb-3 fw-normal">회원 로그인</h1>
             <div th:text="${errorMessage}">
             </div>
 
             <form method="post" action="/member/login">
 
-                <div>
-                    <input type="text" name="username" placeholder="아이디(이메일)을 입력" required/>
+                <div class="form-floating">
+                    <input type="email" class="form-control" id="floatingInput" name="username" placeholder="아이디(이메일) 입력" required/>
+                    <label for="floatingInput">Email address</label>
+                </div>
+                <div  class="form-floating">
+                    <input type="password" class="form-control mb-3" id="floatingPassword" name="password" placeholder="비밀번호 입력" required/>
+                    <label for="floatingPassword">Password</label>
                 </div>
                 <div>
-                    <input type="password" name="password" placeholder="비밀번호 입력" required/>
-                </div>
-                <div>
-                    <button type="submit"> 로그인 </button>
+                    <button class="w-100 btn btn-lg btn-primary" type="submit"> 로그인 </button>
                 </div>
 
             </form>
 
             <hr/>
             <div>
+                <a href="/member/register"> 회원 가입 </a>
+                |
                 <a href="/member/find-password"> 비밀번호 찾기</a>
             </div>
         </div>
