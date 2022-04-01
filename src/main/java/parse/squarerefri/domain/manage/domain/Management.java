@@ -56,21 +56,21 @@ public class Management {
     }
 
     //==생성 메서드==//
-    public static Management createManage(Member member, Food food, ManageInput parameter
-            , StorageStatus storageStatus) {
+    public static Management createManage(Member member, Food food, ManageInput parameter) {
         Management manage = new Management();
         manage.setMember(member);
         manage.setFoodName(parameter.getFoodName());
         manage.setFood(food);
         manage.setSellbydate(parameter.getSellbydate());
-        manage.setStorageStatus(storageStatus);
+        manage.setDelFlag('0');
+        manage.setStorageStatus(parameter.getStorageStatus());
 
         return manage;
     }
 
     //==비지니스 로직==//
-    //등록 취소
-    public void cancel() {
+    //등록 삭제
+    public void delete() {
         this.setDelFlag('1');
     }
 
@@ -85,13 +85,21 @@ public class Management {
 
     //상품 상태 체크
     public void checkStatus() {
-        if (LocalDate.now().isBefore(usebydate)) {
+
+        if (LocalDate.now().isBefore(sellbydate) || LocalDate.now().isEqual(sellbydate)) {
             this.setStatus(ManageStatus.GOOD);
-        } else if (LocalDate.now().isBefore(sellbydate)
-                && LocalDate.now().isAfter(usebydate)) {
-            this.setStatus(ManageStatus.FINE);
         } else {
             this.setStatus(ManageStatus.BAD);
+        }
+
+        if (usebydate != null) {
+            if (LocalDate.now().isBefore(sellbydate) || LocalDate.now().isEqual(sellbydate)) {
+                this.setStatus(ManageStatus.GOOD);
+            } else if (LocalDate.now().isBefore(usebydate) || LocalDate.now().isEqual(usebydate)) {
+                this.setStatus(ManageStatus.FINE);
+            } else {
+                this.setStatus(ManageStatus.BAD);
+            }
         }
     }
 }

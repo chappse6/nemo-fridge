@@ -182,3 +182,35 @@ manage list
 .close:hover {
     color: black;
 }
+
+/*
+에러 페이지
+ */
+
+.error-main {
+    display: flex;
+    margin-top: 5%;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media (min-width: 1025px) {
+    .error-main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 98vh;
+        flex-direction: row;
+        margin: 0;
+    }
+}
+
+.error-message {
+    display: inline;
+    text-align: center;
+    margin: 50px;
+}
+
+.error-message a {
+    color: #56d081;
+}

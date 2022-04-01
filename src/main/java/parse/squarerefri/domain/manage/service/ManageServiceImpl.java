@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import parse.squarerefri.domain.manage.domain.Food;
 import parse.squarerefri.domain.manage.domain.Management;
 import parse.squarerefri.domain.manage.domain.StorageStatus;
+import parse.squarerefri.domain.manage.exception.FoodNullException;
 import parse.squarerefri.domain.manage.model.ManageInput;
 import parse.squarerefri.domain.manage.repository.ManageRepository;
 import parse.squarerefri.domain.member.domain.Member;
@@ -29,13 +30,14 @@ public class ManageServiceImpl implements ManageService{
 
     @Transactional
     @Override
-    public String registManage(ManageInput parameter, StorageStatus storageStatus) {
+    public String registManage(ManageInput parameter) {
 
         Member member = memberRepository.findById(parameter.getMemberId())
                 .orElseThrow(() -> new UsernameNotFoundException("회원 정보가 존재하지 않습니다."));
-        Food food = manageRepository.findOneInFood(parameter.getFoodType());
+        Food food = manageRepository.findOneInFood(parameter.getFoodType())
+                .orElseThrow(() -> new FoodNullException("제품 정보가 존재하지 않습니다."));
 
-        Management management = Management.createManage(member, food, parameter, storageStatus);
+        Management management = Management.createManage(member, food, parameter);
         management.mathUseByDate();
         management.checkStatus();
 
@@ -52,5 +54,12 @@ public class ManageServiceImpl implements ManageService{
             management.checkStatus();
         }
         return managements;
+    }
+
+    @Transactional
+    @Override
+    public void deleteManage(Long id) {
+        Management management = manageRepository.findOne(id);
+        management.delete();
     }
 }

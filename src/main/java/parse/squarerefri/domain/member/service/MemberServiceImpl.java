@@ -20,6 +20,7 @@ import parse.squarerefri.domain.member.model.MemberInput;
 import parse.squarerefri.domain.member.model.ResetPasswordInput;
 import parse.squarerefri.domain.member.repository.MemberRepository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -93,6 +94,53 @@ public class MemberServiceImpl implements MemberService {
 
     @Transactional
     @Override
+    public boolean resetPassword(String uuid, String password) {
+
+        Optional<Member> optionalMember = memberRepository.findByResetPasswordKey(uuid);
+        if(!optionalMember.isPresent()) {
+            throw new UsernameNotFoundException("회원 정보가 존재하지 않습니다.");
+        }
+
+        Member member = optionalMember.get();
+
+        //초기화 날짜 유효 체크
+        if (member.getResetPasswordLimitDt() == null) {
+            throw new RuntimeException(" 유효한 날짜가 아닙니다. ");
+        }
+
+        if(member.getResetPasswordLimitDt().isBefore(LocalDateTime.now())) {
+            throw  new RuntimeException(" 유효한 날짜가 아닙니다. ");
+        }
+
+        String encPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+        member.setPassword(encPassword);
+
+        return true;
+    }
+
+    @Override
+    public boolean checkResetPassword(String uuid) {
+
+        Optional<Member> optionalMember = memberRepository.findByResetPasswordKey(uuid);
+        if(!optionalMember.isPresent()) {
+            throw new UsernameNotFoundException("회원 정보가 존재하지 않습니다.");
+        }
+
+        Member member = optionalMember.get();
+
+        //초기화 날짜 유효 체크
+        if (member.getResetPasswordLimitDt() == null) {
+            throw new RuntimeException(" 유효한 날짜가 아닙니다. ");
+        }
+
+        if(member.getResetPasswordLimitDt().isBefore(LocalDateTime.now())) {
+            throw  new RuntimeException(" 유효한 날짜가 아닙니다. ");
+        }
+        return true;
+    }
+
+    @Transactional
+    @Override
     public boolean updateStatus(String userId, String userStatus) {
         Member member = memberRepository.findById(userId).orElseThrow(() -> new UsernameNotFoundException("회원 정보가 존재하지 않습니다."));
 
@@ -130,12 +178,19 @@ public class MemberServiceImpl implements MemberService {
         }
 
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority("USER"));
+        grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
         if (RoleType.ADMIN.equals(member.getRoleType())) {
-            grantedAuthorities.add(new SimpleGrantedAuthority("ADMIN"));
+            grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }
 
         return new User(member.getId(), member.getPassword(), grantedAuthorities);
+    }
+
+    @Override
+    public Member searchMember(String userId) {
+       Member member = memberRepository.findById(userId)
+               .orElseThrow(() -> new UsernameNotFoundException("회원 정보가 존재하지 않습니다."));
+        return member;
     }
 }

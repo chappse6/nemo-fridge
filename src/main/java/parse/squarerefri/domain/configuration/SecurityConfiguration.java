@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,6 +20,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final MemberService memberService;
 
+    private final UserAuthenticationSuccessHandler userAuthenticationSuccessHandler;
+
     @Bean
     PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
@@ -30,38 +33,57 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new UserAuthenticationFailureHandler();
     }
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.csrf().disable();
+        http.csrf()
+                .disable()
+                // 로그인 없이 접근 가능하도록 설정
+                .authorizeRequests()
+                    .mvcMatchers("/","/css/**","/js/**","/img/**","/font/**")
+                    .permitAll()
+                    .antMatchers("/FREEZER/**", "/FRIDGE/**")
+                    .authenticated()
+                    .antMatchers("/admin/**")
+                    .hasAuthority("ROLE_ADMIN")
+                    .antMatchers(
+                            "/"
+                            , "/member/register"
+                            , "/member/email-auth"
+                            , "/member/find-password"
+                            , "/member/reset/**"
+                    )
+                    .permitAll()
+                    .and()
 
-        // 로그인 없이 접근 가능하도록 설정
-        http.authorizeRequests()
-                .antMatchers("/", "/**")
-                .permitAll();
+                // 로그인 처리
+                .formLogin()
+                    .loginPage("/member/login")
+                    .defaultSuccessUrl("/")
+                    .failureHandler(getFailureHandler())
+                    .successHandler(userAuthenticationSuccessHandler)
+                    .and()
+                .logout()
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+                    .logoutSuccessUrl("/")
+                    .invalidateHttpSession(true)
+                    .and()
+                .exceptionHandling()
+                    .accessDeniedPage("/error/denied");
 
-        // 로그인 처리
-        http.formLogin()
-                .loginPage("/member/login")
-                .failureHandler(getFailureHandler())
-                .permitAll();
-
-        http.logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
-                .logoutSuccessUrl("/")
-                .invalidateHttpSession(true);
-
-        http.exceptionHandling()
-                .accessDeniedPage("/error/denied");
-
-        super.configure(http);
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(memberService)
                 .passwordEncoder(getPasswordEncoder());
+    }
 
-        super.configure(auth);
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web
+                .ignoring()
+                .antMatchers("/resources/**");
     }
 }

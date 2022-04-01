@@ -14,6 +14,8 @@ public class Food {
     @Column(name = "food_type")
     private String id;
 
+    private String foodTypeEn;
+
     @OneToOne(mappedBy = "food", fetch = FetchType.LAZY)
     private Management management;
 

@@ -9,6 +9,7 @@ import parse.squarerefri.domain.manage.domain.StorageStatus;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @Repository
@@ -30,7 +31,7 @@ public class ManageRepositoryImpl implements ManageRepository {
     @Override
     public List<Management> findAll(String memberId, StorageStatus storageStatus) {
         return em.createQuery("select a from Management as a where" +
-                        " a.member = :memberId and" +
+                        " a.member.id = :memberId and" +
                         " a.storageStatus = :storageStatus and" +
                         " a.delFlag = '0'", Management.class)
                 .setParameter("memberId", memberId)
@@ -39,7 +40,8 @@ public class ManageRepositoryImpl implements ManageRepository {
     }
 
     @Override
-    public Food findOneInFood(String id) {
-        return em.find(Food.class, id);
+    public Optional<Food> findOneInFood(String id) {
+        Food food = em.find(Food.class, id);
+        return Optional.ofNullable(food);
     }
 }

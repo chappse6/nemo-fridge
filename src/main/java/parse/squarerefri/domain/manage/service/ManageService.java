@@ -9,7 +9,9 @@ import java.util.List;
 
 public interface ManageService {
 
-    String registManage(ManageInput parameter, StorageStatus storageStatus);
+    String registManage(ManageInput parameter);
 
     List<Management> findAll(String memberId, StorageStatus storageStatus);
+
+    void deleteManage(Long id);
 }

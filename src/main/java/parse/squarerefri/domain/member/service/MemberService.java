@@ -1,6 +1,7 @@
 package parse.squarerefri.domain.member.service;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
+import parse.squarerefri.domain.member.domain.Member;
 import parse.squarerefri.domain.member.model.MemberInput;
 import parse.squarerefri.domain.member.model.ResetPasswordInput;
 
@@ -20,6 +21,15 @@ public interface MemberService extends UserDetailsService {
      */
     boolean sendResetPassword(ResetPasswordInput parameter);
 
+    /**
+     * 비밀번호 초기화
+     */
+    boolean resetPassword(String uuid, String password);
+
+    /**
+     * 입력받은 UUID 확인
+     */
+    boolean checkResetPassword(String uuid);
 
     /**
      * 회원 목록 리턴(관리자에서만 사용 가능)
@@ -40,4 +50,9 @@ public interface MemberService extends UserDetailsService {
      * 회원 비밀번호 초기화
      */
     boolean updatePassword(String userId, String password);
+
+    /**
+     * 회원 조회
+     */
+    Member searchMember(String userId);
 }

@@ -1,6 +1,7 @@
 package parse.squarerefri.domain.manage.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +13,10 @@ import parse.squarerefri.domain.manage.service.ManageService;
 import parse.squarerefri.domain.member.domain.Member;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.List;
+
+import static parse.squarerefri.domain.manage.model.ManageInput.LocalDateConverter;
 
 @Controller
 @RequiredArgsConstructor
@@ -22,26 +26,31 @@ public class ManageController {
 
     @GetMapping("/{storageStatus}/list")
     public String listOutput(@PathVariable("storageStatus") StorageStatus storageStatus,
-                             @SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember,
-                             Model model) {
-        List<Management> managements = manageService.findAll(loginMember.getId(), storageStatus);
+                            Principal principal, Model model) {
+        List<Management> managements = manageService.findAll(principal.getName(), storageStatus);
         model.addAttribute("managements",managements);
+        model.addAttribute("storageStatus",storageStatus);
         return "manage/listfood";
     }
 
-    @GetMapping("/{storageStatus}/add")
+    @GetMapping("/manage/add")
     public String add() {
-        return "{storageStatus}/add";
+        return "manage/addfood";
     }
 
-    @PostMapping("/{storageStatus}/add")
-    public String addSubmit(@PathVariable("storageStatus") StorageStatus storageStatus,
-                             @SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember,
-                             Model model, HttpServletRequest request, ManageInput parameter) {
-        parameter.setMemberId(loginMember.getId());
-        String foodName = manageService.registManage(parameter, storageStatus);
+    @PostMapping("/manage/add")
+    public String addSubmit(Principal principal, Model model, HttpServletRequest request, ManageInput parameter) {
+        parameter.setMemberId(principal.getName());
+        parameter.setSellbydate(LocalDateConverter(parameter.getSellbydateString()));
+        String foodName = manageService.registManage(parameter);
         model.addAttribute("foodName",foodName);
-        return "{storageStatus}/list";
+        return "redirect:/";
+    }
+
+    @PostMapping("{status}/list/{manageId}/cancel")
+    public String cancelFood(@PathVariable("manageId") Long manageId) {
+        manageService.deleteManage(manageId);
+        return "redirect:/";
     }
 
 }

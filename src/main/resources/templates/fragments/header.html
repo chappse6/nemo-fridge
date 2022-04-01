@@ -8,7 +8,8 @@
                 <h1 class="title-icon">nemo-fridge</h1>
             </a>
 
-            <div class="col-md-4 text-end">
+            <div class="col-md-4 text-end d-flex justify-content-end align-items-center">
+                <p class="m-auto mx-3" th:unless="session.memberName eq null" sec:authorize="isAuthenticated()" th:text="${session.memberName}+' 님'">test</p>
                 <button type="button" onclick="location.href='/member/login'"  class="btn btn-outline-dark me-2" sec:authorize="isAnonymous()">Login</button>
                 <button type="button" onclick="location.href='/member/register'" class="btn btn-dark" sec:authorize="isAnonymous()">Sign-up</button>
                 <button type="button" onclick="location.href='/member/logout'" class="btn btn-outline-dark me-2" sec:authorize="isAuthenticated()">Logout</button>

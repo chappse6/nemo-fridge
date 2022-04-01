@@ -5,6 +5,7 @@ import parse.squarerefri.domain.manage.domain.Management;
 import parse.squarerefri.domain.manage.domain.StorageStatus;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ManageRepository {
     void save(Management management);
@@ -13,6 +14,6 @@ public interface ManageRepository {
 
     List<Management> findAll(String memberId, StorageStatus storageStatus);
 
-    Food findOneInFood(String id);
+    Optional<Food> findOneInFood(String id);
 
 }
