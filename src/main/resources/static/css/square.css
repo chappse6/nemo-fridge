@@ -102,8 +102,6 @@ a {
     border-color: var(--bs-line-color);
     padding: 7px;
     color: #70777e;
-    align-items: center;
-    display: flex;
 }
 
 .footer .copy-right {
@@ -133,14 +131,16 @@ manage list
 
 .manage-one {
     float: left;
-    width: 150px;
-    height: 150px;
+    width: 155px;
+    height: 155px;
     background-color: white;
     border-radius: 20%;
     margin: 10px;
     justify-content: center;
     align-items: center;
     position: relative;
+    padding-top: 3px;
+    padding-bottom: 8px;
 }
 
 .manage-one .foodname {
@@ -170,6 +170,15 @@ manage list
     border-color: red !important;
 }
 
+.manage-one .manage-text {
+    font-size: 0.8rem;
+    text-align: left;
+}
+
+.manage-one .manage-date {
+    font-size: 0.9rem;
+}
+
 .close {
     color: #70777e;
     position: absolute;
@@ -181,6 +190,17 @@ manage list
 
 .close:hover {
     color: black;
+}
+
+.manage-list .empty-listfood {
+    top:47%; !important;
+}
+
+.empty-text {
+    font-family: ohsquare;
+    font-weight: bold;
+    font-size: 2.5em;
+    color: #9BA697;
 }
 
 /*
@@ -206,6 +226,7 @@ manage list
 }
 
 .error-message {
+    max-width: 450px;
     display: inline;
     text-align: center;
     margin: 50px;

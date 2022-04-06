@@ -10,10 +10,10 @@
 <div layout:fragment="content">
     <div class="container">
         <div class="main">
-            <h2>식품 추가</h2>
+            <h2 class="mb-4">식품 추가</h2>
             <form method="post">
                 <div>
-                    <input type="text" name="storageStatus" placeholder="냉장고/냉동고" list="storageList" required/>
+                    <input type="text" class="form-control" name="storageStatus" placeholder="냉장고/냉동고" list="storageList" required/>
                     <datalist id="storageList">
                         <option value="FRIDGE">냉장</option>
                         <option value="FREEZER">냉동</option>
@@ -21,19 +21,22 @@
                 </div>
 
                 <div>
-                    <input type="text" name="foodName" placeholder="제품 이름" required/>
+                    <input type="text" class="form-control" name="foodName" placeholder="제품 이름" required/>
                 </div>
 
                 <div>
-                    <input type="text" name="foodType" placeholder="제품 종류" required/>
+                    <select class="form-control" name="foodType">
+                        <option value="0">select option</option>
+                        <option th:each="food :${foodList}" th:value="${foodList}" th:text="${foodList}"></option>
+                    </select>
                 </div>
 
                 <div>
-                    <input type="date" name="sellbydateString" placeholder="유통기한" required/>
+                    <input type="date" class="form-control mb-3" name="sellbydateString" placeholder="유통기한" required/>
                 </div>
 
                 <div>
-                    <button type="submit">추가</button>
+                    <button class="w-100 btn btn-lg btn-dark" type="submit">추가</button>
                 </div>
             </form>
         </div>

@@ -25,13 +25,17 @@
                     <a href="#" th:href="|javascript:cancel('${storageStatus}','${manage.id}')|"><i class="bi bi-x"></i></a>
                 </div>
 
-                <div class="col-10" th:text="${manage.sellbydate}"></div>
-                <div class="col-10" th:text="${manage.usebydate}"></div>
+                <div class="col-9 manage-text">유통기한</div>
+                <div class="col-10 manage-date" th:text="${manage.sellbydate}"></div>
+                <div class="col-9 manage-text">소비기한</div>
+                <div class="col-10 manage-date" th:text="${manage.usebydate}"></div>
             </div>
         </th:block>
         <!-- null의 경우 empty 표시 -->
         <th:block th:if="${managements.isEmpty()}">
-            <div>empty</div>
+            <div class="position-absolute empty-listfood start-50 translate-middle">
+                <h1 class="empty-text">empty</h1>
+            </div>
         </th:block>
     </div>
 
