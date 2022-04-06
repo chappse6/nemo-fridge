@@ -16,9 +16,6 @@ public class Food {
 
     private String foodTypeEn;
 
-    @OneToOne(mappedBy = "food", fetch = FetchType.LAZY)
-    private Management management;
-
     private int judgeUsdFridge;
 
     private int judgeUsdFrozen;

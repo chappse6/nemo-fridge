@@ -123,7 +123,7 @@ public class MemberServiceImpl implements MemberService {
 
         Optional<Member> optionalMember = memberRepository.findByResetPasswordKey(uuid);
         if(!optionalMember.isPresent()) {
-            throw new UsernameNotFoundException("회원 정보가 존재하지 않습니다.");
+            return false;
         }
 
         Member member = optionalMember.get();
@@ -134,7 +134,7 @@ public class MemberServiceImpl implements MemberService {
         }
 
         if(member.getResetPasswordLimitDt().isBefore(LocalDateTime.now())) {
-            throw  new RuntimeException(" 유효한 날짜가 아닙니다. ");
+            throw new RuntimeException(" 유효한 날짜가 아닙니다. ");
         }
         return true;
     }

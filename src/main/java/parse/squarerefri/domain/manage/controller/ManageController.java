@@ -26,15 +26,17 @@ public class ManageController {
 
     @GetMapping("/{storageStatus}/list")
     public String listOutput(@PathVariable("storageStatus") StorageStatus storageStatus,
-                            Principal principal, Model model) {
+                             Principal principal, Model model) {
         List<Management> managements = manageService.findAll(principal.getName(), storageStatus);
-        model.addAttribute("managements",managements);
-        model.addAttribute("storageStatus",storageStatus);
+        model.addAttribute("managements", managements);
+        model.addAttribute("storageStatus", storageStatus);
         return "manage/listfood";
     }
 
     @GetMapping("/manage/add")
-    public String add() {
+    public String add(Model model) {
+        List<String> foodList = manageService.findAllForList();
+        model.addAttribute("foodList", foodList);
         return "manage/addfood";
     }
 
@@ -43,14 +45,15 @@ public class ManageController {
         parameter.setMemberId(principal.getName());
         parameter.setSellbydate(LocalDateConverter(parameter.getSellbydateString()));
         String foodName = manageService.registManage(parameter);
-        model.addAttribute("foodName",foodName);
+        model.addAttribute("foodName", foodName);
+
         return "redirect:/";
     }
 
     @PostMapping("{status}/list/{manageId}/cancel")
     public String cancelFood(@PathVariable("manageId") Long manageId) {
         manageService.deleteManage(manageId);
-        return "redirect:/";
+        return "redirect:/{status}/list";
     }
 
 }

@@ -27,7 +27,7 @@ public class Management {
 
     private String foodName;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "food_type")
     private Food food;
 
@@ -48,11 +48,6 @@ public class Management {
     public void setMember(Member member) {
         this.member = member;
         member.getManagement().add(this);
-    }
-
-    public void setFood(Food food) {
-        this.food = food;
-        food.setManagement(this);
     }
 
     //==생성 메서드==//

@@ -13,5 +13,7 @@ public interface ManageService {
 
     List<Management> findAll(String memberId, StorageStatus storageStatus);
 
+    List<String> findAllForList();
+
     void deleteManage(Long id);
 }
