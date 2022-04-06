@@ -13,26 +13,31 @@
             <h2 class="mb-4">식품 추가</h2>
             <form method="post">
                 <div>
-                    <input type="text" class="form-control" name="storageStatus" placeholder="냉장고/냉동고" list="storageList" required/>
+                    <p class="text-start mb-1">보관</p>
+                    <input type="text" class="form-control mb-2" name="storageStatus" placeholder="냉장고/냉동고" list="storageList" required/>
                     <datalist id="storageList">
-                        <option value="FRIDGE">냉장</option>
-                        <option value="FREEZER">냉동</option>
+                        <option value="FRIDGE">냉장고</option>
+                        <option value="FREEZER">냉동고</option>
                     </datalist>
                 </div>
 
                 <div>
-                    <input type="text" class="form-control" name="foodName" placeholder="제품 이름" required/>
+                    <p class="text-start mb-1">제품 이름</p>
+                    <input type="text" class="form-control mb-2" name="foodName" placeholder="제품 이름" required/>
                 </div>
 
                 <div>
-                    <select class="form-control" name="foodType">
-                        <option value="0">select option</option>
-                        <option th:each="food :${foodList}" th:value="${foodList}" th:text="${foodList}"></option>
-                    </select>
+                    <p class="text-start mb-1">제품 종류</p>
+                    <input type="text" class="form-control mb-2" name="foodType" placeholder="제품 종류" list="foodTypeList" required/>
+                    <datalist id="foodTypeList">
+                        <option value="없음"></option>
+                        <option th:each="food : ${foodList}" th:value="${food}" th:text="${food}"></option>
+                    </datalist>
                 </div>
 
                 <div>
-                    <input type="date" class="form-control mb-3" name="sellbydateString" placeholder="유통기한" required/>
+                    <p class="text-start mb-1">유통기한</p>
+                    <input type="date" class="form-control mb-4" name="sellbydateString" placeholder="유통기한" required/>
                 </div>
 
                 <div>
@@ -42,4 +47,31 @@
         </div>
     </div>
 </div>
+<th:block layout:fragment="script">
+<script>
+    // Find all inputs on the DOM which are bound to a datalist via their list attribute.
+    var inputs = document.querySelectorAll('input[list]');
+    for (var i = 0; i < inputs.length; i++) {
+        // When the value of the input changes...
+        inputs[i].addEventListener('change', function () {
+            var optionFound = false,
+                datalist = this.list;
+            // Determine whether an option exists with the current value of the input.
+            for (var j = 0; j < datalist.options.length; j++) {
+                if (this.value == datalist.options[j].value) {
+                    optionFound = true;
+                    break;
+                }
+            }
+            // use the setCustomValidity function of the Validation API
+            // to provide an user feedback if the value does not exist in the datalist
+            if (optionFound) {
+                this.setCustomValidity('');
+            } else {
+                this.setCustomValidity('유효한 값을 선택하세요.\n 해당 값이 없을 경우 \'없음\'을 선택해주세요.');
+            }
+        });
+    }
+</script>
+</th:block>
 </html>

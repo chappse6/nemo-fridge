@@ -59,6 +59,7 @@ public class ManageServiceImpl implements ManageService {
         return managements;
     }
 
+    @Transactional
     @Override
     public List<String> findAllForList() {
         List<Food> foods = foodRepository.findAll();

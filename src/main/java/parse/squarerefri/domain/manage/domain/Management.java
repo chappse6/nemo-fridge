@@ -17,7 +17,7 @@ import java.util.Locale;
 public class Management {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "manage_id")
     private Long id;
 

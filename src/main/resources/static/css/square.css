@@ -23,6 +23,10 @@ a {
     margin: 5% 0% 5% 0%;
 }
 
+.main input {
+    font-family: giorgio;
+}
+
 .layout {
     display: flex;
 }
@@ -125,7 +129,9 @@ manage list
 
 .manage-list {
     background-color: #dbead5;
-    min-height: 60vh;
+    overflow:hidden;
+    height:auto;
+    min-height: 61vh;
     padding: 1px;
 }
 

@@ -47,7 +47,7 @@ public class ManageController {
         String foodName = manageService.registManage(parameter);
         model.addAttribute("foodName", foodName);
 
-        return "redirect:/";
+        return "redirect:/"+ parameter.getStorageStatus() +"/list";
     }
 
     @PostMapping("{status}/list/{manageId}/cancel")
