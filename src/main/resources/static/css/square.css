@@ -129,8 +129,8 @@ manage list
 
 .manage-list {
     background-color: #dbead5;
-    overflow:hidden;
-    height:auto;
+    overflow: hidden;
+    height: auto;
     min-height: 61vh;
     padding: 1px;
 }
@@ -188,8 +188,8 @@ manage list
 .close {
     color: #70777e;
     position: absolute;
-    top: 6px;
-    right: 10px;
+    top: 1px;
+    right: 17px;
     width: 5px;
     height: 5px;
 }
@@ -199,7 +199,7 @@ manage list
 }
 
 .manage-list .empty-listfood {
-    top:47%; !important;
+    top: 47%;!important;
 }
 
 .empty-text {
