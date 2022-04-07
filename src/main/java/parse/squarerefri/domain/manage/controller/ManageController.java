@@ -27,10 +27,12 @@ public class ManageController {
 
     @GetMapping("/{storageStatus}/list")
     public String listOutput(@PathVariable("storageStatus") StorageStatus storageStatus,
+                             @RequestParam(required = false) boolean deleteMode,
                              Principal principal, Model model) {
         List<Management> managements = manageService.findAll(principal.getName(), storageStatus);
         model.addAttribute("managements", managements);
         model.addAttribute("storageStatus", storageStatus);
+        model.addAttribute("deleteMode", deleteMode);
         return "manage/listfood";
     }
 
@@ -54,8 +56,10 @@ public class ManageController {
     }
 
     @PostMapping("{status}/list/{manageId}/cancel")
-    public String cancelFood(@PathVariable("manageId") Long manageId) {
+    public String cancelFood(@PathVariable("manageId") Long manageId, RedirectAttributes redirectAttributes) {
         manageService.deleteManage(manageId);
+
+        redirectAttributes.addAttribute("deleteMode", true);
         return "redirect:/{status}/list";
     }
 
