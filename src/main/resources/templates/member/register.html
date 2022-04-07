@@ -16,12 +16,12 @@
 
                 <div>
                     <p class="text-start mb-1">아이디(이메일)</p>
-                    <input type="email" class="form-control mb-2" name="userId" placeholder="아이디(이메일) 입력" required />
+                    <input type="email" class="form-control mb-2" name="userId" placeholder="아이디(이메일) 입력" required/>
                 </div>
 
                 <div>
                     <p class="text-start mb-1">이름</p>
-                    <input type="text" class="form-control mb-2" name="userName" placeholder="이름 입력" required />
+                    <input type="text" class="form-control mb-2" name="userName" placeholder="이름 입력" required/>
                 </div>
 
                 <!-- 전화번호 등록 생략/보류
@@ -32,11 +32,12 @@
                 -->
                 <div>
                     <p class="text-start mb-1">비밀번호</p>
-                    <input type="password" class="form-control mb-2" name="password" placeholder="비밀번호 입력" required />
+                    <input type="password" class="form-control mb-2" name="password" placeholder="비밀번호 입력" required/>
                 </div>
                 <div>
                     <p class="text-start mb-1">비밀번호 확인</p>
-                    <input type="password" class="form-control mb-4" name="repassword" placeholder="비밀번호 입력 확인" required/>
+                    <input type="password" class="form-control mb-4" name="repassword" placeholder="비밀번호 입력 확인"
+                           required/>
                 </div>
 
                 <div>
@@ -56,6 +57,30 @@
 
                 if (password != repassword) {
                     alert(' 비밀번호 값과 확인 비밀번호 값이 일치하지 않습니다. ');
+                    return false;
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('form').on('submit', function () {
+                // == 정규 방정식을 통하여 유효성 체크 == //
+                var e_RegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+                var n_RegExp = /^[가-힣]{2,15}$/; //이름 유효성검사 정규식
+
+                var objEmail = $(this).find('input[name=userId]').val();//메일
+                var objName = $(this).find('input[name=userName]').val(); //이름
+
+                // == 이메일 양식 체크 == //
+                if (!e_RegExp.test(objEmail)) {
+                    alert("올바른 이메일 형식이 아닙니다.");
+                    return false;
+                }
+
+                // == 이름 체크 == //
+                if (!n_RegExp.test(objName)) {
+                    alert("특수문자,영어,숫자는 사용할 수 없습니다. 한글만 입력하여주세요.");
                     return false;
                 }
             });
