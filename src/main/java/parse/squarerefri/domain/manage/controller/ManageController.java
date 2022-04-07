@@ -5,6 +5,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import parse.squarerefri.domain.common.SessionConst;
 import parse.squarerefri.domain.manage.domain.Management;
 import parse.squarerefri.domain.manage.domain.StorageStatus;
@@ -41,13 +42,15 @@ public class ManageController {
     }
 
     @PostMapping("/manage/add")
-    public String addSubmit(Principal principal, Model model, HttpServletRequest request, ManageInput parameter) {
+    public String addSubmit(Principal principal, Model model, RedirectAttributes redirectAttributes, ManageInput parameter) {
         parameter.setMemberId(principal.getName());
         parameter.setSellbydate(LocalDateConverter(parameter.getSellbydateString()));
         String foodName = manageService.registManage(parameter);
+
+        redirectAttributes.addAttribute("storageStatus", parameter.getStorageStatus());
         model.addAttribute("foodName", foodName);
 
-        return "redirect:/"+ parameter.getStorageStatus() +"/list";
+        return "redirect:/{storageStatus}/list";
     }
 
     @PostMapping("{status}/list/{manageId}/cancel")
