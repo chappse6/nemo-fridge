@@ -167,7 +167,8 @@
 						<!-- Container 640px -->
 						<table align="center" border="0" width="640" cellpadding="0" cellspacing="0" class="container" style="width: 640px;">
 							<tr>
-								<td class="subheader" class="header-title" style="padding: 70px 0 20px 0; font-weight: bold; font-size: 45px; font-family: 'Noto sans', sans-serif; text-align: left;">%s님 네모냉장고 가입을</br> 축하드립니다.</td>
+								<td class="subheader header-title" style="padding: 70px 0 20px 0; font-weight: bold; font-size: 30px; font-family: 'Noto sans', sans-serif; text-align: left;"
+									th:utext="${subheader}">가나다님 네모냉장고 가입을 축하드립니다.</td>
 							</tr>
 
 							<tr>
@@ -182,15 +183,15 @@
 								<td>
 									<table class="container" align="left" border="0" width="600" cellpadding="0" cellspacing="0" style="width: 600px;">
 										<tr>
-											<td class="article-title" class="article-title" style="padding: 0 0 15px 30px; font-size: 22px; font-weight: bold; text-align: left;"><a href="#" style="color: #000000; text-decoration: none;">아래 링크를 클릭하셔서 가입을 완료 하세요.</a></td>
+											<td class="article-title" style="padding: 0 0 15px 30px; font-size: 22px; font-weight: bold; text-align: left;"><a href="#" style="color: #000000; text-decoration: none;" th:text="${article}">아래 링크를 클릭하셔서 가입을 완료 하세요.</a></td>
 										</tr>
 
 										<tr>
-											<td class="article-cta" class="article-button" style="padding: 20px 0 0 30px;">
+											<td class="article-cta article-button" style="padding: 20px 0 0 30px;">
 												<table align="left" border="0" width="125" cellpadding="0" cellspacing="0" style="width: 125px; text-align: center;">
 													<tr>
 														<td style="border: 2px solid #000000; padding: 8px;">
-															<a href="http://localhost:9090/member/email-auth?id=%s" style="text-decoration: none; color: #000000; font-weight: bold; font-family: 'Noto sans', sans-serif; text-transform: uppercase; font-size: 14px;">가입 완료</a>
+															<a th:href="@{${link}}" style="text-decoration: none; color: #000000; font-weight: bold; font-family: 'Noto sans', sans-serif; text-transform: uppercase; font-size: 14px;" th:text="${linkMsg}">가입 완료</a>
 														</td>
 													</tr>
 												</table>
@@ -216,7 +217,7 @@
 								<td style="padding: 40px 20px 40px 0;">
 									<table class="container" align="right" width="225" border="0" cellpadding="0" cellspacing="0" style="width: 225px;">
 										<tr>
-											<td class="footer-copy" class="footer-copy" style="text-transform: uppercase; text-align: right; font-size: 10px; color: #ffffff; font-family: 'Noto sans', sans-serif; padding: 5px 0 0 0;">Copyright© 2022. nemo-fridge</br> All rights reserved.</td>
+											<td class="footer-copy" style="text-transform: uppercase; text-align: right; font-size: 10px; color: #ffffff; font-family: 'Noto sans', sans-serif; padding: 5px 0 0 0;">Copyright© 2022. nemo-fridge</br> All rights reserved.</td>
 										</tr>
 									</table>
 								</td>

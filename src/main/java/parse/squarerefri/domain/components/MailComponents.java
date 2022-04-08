@@ -1,23 +1,31 @@
 package parse.squarerefri.domain.components;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Component;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 import parse.squarerefri.domain.mail.entity.MailTemplate;
 import parse.squarerefri.domain.mail.repository.MailTemplateRepository;
 
 import javax.mail.internet.MimeMessage;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
+@Slf4j
 @RequiredArgsConstructor
 @Component
 public class MailComponents {
 
     private final JavaMailSender javaMailSender;
     private final MailTemplateRepository mailTemplateRepository;
+
+    private final TemplateEngine htmlTemplateEngine;
 
     public boolean sendMail(String mailTemplateId, String mail, String userName, String uuid) {
 
@@ -28,6 +36,13 @@ public class MailComponents {
 
         MailTemplate mailTemplate = optionalMailTemplate.get();
 
+        Map<String, Object> variables = mailTemplate.variablesCreate(userName, uuid);
+
+        Context context = new Context();
+        context.setVariables(variables);
+
+        String htmlTemplate = htmlTemplateEngine.process("mail/mail", context);
+
         boolean result = false;
 
         MimeMessagePreparator msg = new MimeMessagePreparator() {
@@ -36,7 +51,7 @@ public class MailComponents {
                 MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
                 mimeMessageHelper.setTo(mail);
                 mimeMessageHelper.setSubject(mailTemplate.getSubject());
-                mimeMessageHelper.setText(mailTemplate.textAdd(userName, uuid), true);
+                mimeMessageHelper.setText(htmlTemplate, true);
             }
         };
 
@@ -45,7 +60,7 @@ public class MailComponents {
             result = true;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.error("e.getMessage={}",e.getMessage());
         }
 
         return result;
