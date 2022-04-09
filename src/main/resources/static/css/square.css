@@ -91,14 +91,13 @@ a {
 
 .info-part {
     display: flex;
-    min-height: 50vh;
+    min-height: 65vh;
 }
 
 .info-inner {
     margin: auto;
     text-align: center;
 }
-
 
 .footer {
     width: 100%;
@@ -140,7 +139,7 @@ manage list
     width: 155px;
     height: 155px;
     background-color: white;
-    border-radius: 20%;
+    border-radius: 15%;
     margin: 10px;
     justify-content: center;
     align-items: center;
