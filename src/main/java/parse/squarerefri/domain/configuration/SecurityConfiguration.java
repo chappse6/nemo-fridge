@@ -22,17 +22,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final UserAuthenticationSuccessHandler userAuthenticationSuccessHandler;
 
+    private final UserAuthenticationFailureHandler userAuthenticationFailureHandler;
+
     @Bean
     PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-    // 로그인 실패시 처리 (빈으로 구현)
-    @Bean
-    UserAuthenticationFailureHandler getFailureHandler() {
-        return new UserAuthenticationFailureHandler();
-    }
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -62,7 +57,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin()
                     .loginPage("/member/login")
                     .defaultSuccessUrl("/")
-                    .failureHandler(getFailureHandler())
+                    .failureHandler(userAuthenticationFailureHandler)
                     .successHandler(userAuthenticationSuccessHandler)
                     .and()
                 .logout()
