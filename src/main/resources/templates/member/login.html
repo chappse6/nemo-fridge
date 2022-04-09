@@ -11,7 +11,7 @@
     <div class="container">
         <div class="login">
             <h1 class="h2 mb-3 fw-normal">회원 로그인</h1>
-            <div th:text="${errorMessage}">
+            <div class="mb-3 text-danger" th:text="${errorMessage}">
             </div>
 
             <form method="post" action="/member/login">
