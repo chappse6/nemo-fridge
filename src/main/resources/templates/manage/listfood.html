@@ -27,7 +27,10 @@
 
                 <div class="col-9 manage-text">유통기한</div>
                 <div class="col-10 manage-date" th:text="${manage.sellbydate}"></div>
-                <div class="col-9 manage-text">소비기한</div>
+                <div class="col-9 manage-text">
+                        <span>소비기한</span>
+                        <span data-toggle="tooltip" data-placement="top" title="미국 농무부와 미국 식품의약국을 비롯한 여러 리소스의 연구를 통합한 자료를 바탕으로 예측합니다."><i class="bi bi-info-circle"></i></span>
+                </div>
                 <div class="col-10 manage-date" th:text="${manage.usebydate}"></div>
             </div>
         </th:block>
@@ -67,6 +70,11 @@
             document.body.appendChild(form);
             form.submit();
         }
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
     </script>
 </th:block>
 </html>
