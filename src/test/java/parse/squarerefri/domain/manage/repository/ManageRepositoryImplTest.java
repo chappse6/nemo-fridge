@@ -1,5 +1,6 @@
 package parse.squarerefri.domain.manage.repository;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,29 +27,22 @@ class ManageRepositoryImplTest {
     MemberRepository memberRepository;
 
     @Test
-    void  하나찾기() {
-        //given
-        Long id = 1L;
-
-        //when
-        Management management = manageRepository.findOne(id);
-
-        //then
-        assertThat(management.getId()).isEqualTo(1L);
-    }
-    @Test
     void 항목열기() {
         //given
+        String foodName = "김치찌개";
+        Management management1 = new Management();
+        management1.setFoodName(foodName);
+
         StorageStatus storageStatus = FRIDGE;
         Member member = new Member();
         member.setId("test");
+        member.setEmailAuthFlag(false);
+        management1.setStorageStatus(storageStatus);
+        management1.setMember(member);
+        manageRepository.save(management1);
 
         //when
         List<Management> managementList = manageRepository.findAll(member.getId(), storageStatus);
-
-        for (Management manage : managementList) {
-            System.out.println(manage.toString());
-        }
 
         //then
         assertThat(managementList.size() >= 1);
