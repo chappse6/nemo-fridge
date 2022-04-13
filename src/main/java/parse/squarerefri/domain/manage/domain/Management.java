@@ -7,9 +7,6 @@ import parse.squarerefri.domain.member.domain.Member;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.Locale;
 
 @Entity
 @Getter
