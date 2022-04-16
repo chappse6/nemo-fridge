@@ -12,7 +12,7 @@
     <div class="manage-list row-cols-6">
         <th:block th:if="${managements != null}">
             <div class="row col-1 manage-one" th:each="manage : ${managements}">
-                <div class="col-7 foodname" th:text="${manage.foodName}"></div>
+                <div class="col-8 foodname" th:text="${manage.foodName}"></div>
 
                 <div th:if="${#strings.equals(manage.status,'GOOD')}"
                      class="circle circle-green col-1"></div>
