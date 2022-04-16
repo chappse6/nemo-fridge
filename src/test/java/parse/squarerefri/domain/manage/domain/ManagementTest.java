@@ -11,8 +11,7 @@ class ManagementTest {
     @Test
     void 소비기한계산_냉장() {
         //given
-        Food food = new Food();
-        food.setJudgeUsdFridge(10);
+        Food food = Food.builder().judgeUsdFridge(10).build();
 
         Management management = new Management();
         management.setStorageStatus(StorageStatus.FRIDGE);
@@ -28,8 +27,7 @@ class ManagementTest {
     @Test
     void 소비기한계산_냉동() {
         //given
-        Food food = new Food();
-        food.setJudgeUsdFrozen(15);
+        Food food = Food.builder().judgeUsdFrozen(15).build();
 
         Management management = new Management();
         management.setStorageStatus(StorageStatus.FREEZER);
