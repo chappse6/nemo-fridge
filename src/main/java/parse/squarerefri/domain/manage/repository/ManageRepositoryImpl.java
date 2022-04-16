@@ -3,13 +3,11 @@ package parse.squarerefri.domain.manage.repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-import parse.squarerefri.domain.manage.domain.Food;
 import parse.squarerefri.domain.manage.domain.Management;
 import parse.squarerefri.domain.manage.domain.StorageStatus;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 @Repository
@@ -39,9 +37,4 @@ public class ManageRepositoryImpl implements ManageRepository {
                 .getResultList();
     }
 
-    @Override
-    public Optional<Food> findOneInFood(String id) {
-        Food food = em.find(Food.class, id);
-        return Optional.ofNullable(food);
-    }
 }

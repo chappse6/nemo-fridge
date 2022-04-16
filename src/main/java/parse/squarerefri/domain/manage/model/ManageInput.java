@@ -1,6 +1,7 @@
 package parse.squarerefri.domain.manage.model;
 
 import groovy.transform.ToString;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import parse.squarerefri.domain.manage.domain.Food;
@@ -17,6 +18,7 @@ import java.time.format.DateTimeFormatter;
 @ToString
 @Getter
 @Setter
+@Builder
 public class ManageInput {
 
     private StorageStatus storageStatus;

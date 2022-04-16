@@ -1,13 +1,14 @@
 package parse.squarerefri.domain.manage.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
 public class Food {
 
     @Id
@@ -20,4 +21,7 @@ public class Food {
 
     private int judgeUsdFrozen;
 
+    public Food() {
+
+    }
 }
