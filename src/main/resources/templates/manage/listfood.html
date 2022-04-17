@@ -15,11 +15,14 @@
                 <div class="col-8 foodname" th:text="${manage.foodName}"></div>
 
                 <div th:if="${#strings.equals(manage.status,'GOOD')}"
-                     class="circle circle-green col-1"></div>
+                     class="circle circle-green col-1" data-toggle="tooltip" data-placement="top" title="상태양호">
+                </div>
                 <div th:if="${#strings.equals(manage.status,'FINE')}"
-                     class="circle circle-yellow col-1"></div>
+                     class="circle circle-yellow col-1" data-toggle="tooltip" data-placement="top" title="섭취주의">
+                </div>
                 <div th:if="${#strings.equals(manage.status,'BAD')}"
-                     class="circle circle-red col-1"></div>
+                     class="circle circle-red col-1" data-toggle="tooltip" data-placement="top" title="섭취경고">
+                </div>
 
                 <div class="close" th:if="${deleteMode} eq true">
                     <a href="#" th:href="|javascript:cancel('${storageStatus}','${manage.id}')|"><i class="bi bi-x" style="font-size: 1.5rem;"></i></a>
@@ -27,11 +30,13 @@
 
                 <div class="col-9 manage-text">유통기한</div>
                 <div class="col-10 manage-date" th:text="${manage.sellbydate}"></div>
-                <div class="col-9 manage-text">
-                        <span>소비기한</span>
-                        <span data-toggle="tooltip" data-placement="top" title="미국 농무부와 미국 식품의약국을 비롯한 여러 리소스의 연구를 통합한 자료를 바탕으로 예측합니다."><i class="bi bi-info-circle"></i></span>
+                <div class="col-9 manage-text" th:if="${manage.usebydate != null}">
+                    <span>소비기한</span>
+                    <span data-toggle="tooltip" data-placement="top"
+                          title="미국 농무부와 미국 식품의약국을 비롯한 여러 리소스의 연구를 통합한 자료를 바탕으로 예측합니다."><i
+                            class="bi bi-info-circle"></i></span>
                 </div>
-                <div class="col-10 manage-date" th:text="${manage.usebydate}"></div>
+                <div class="col-10 manage-date" th:if="${manage.usebydate != null}" th:text="${manage.usebydate}"></div>
             </div>
         </th:block>
         <!-- null의 경우 empty 표시 -->

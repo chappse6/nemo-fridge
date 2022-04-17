@@ -69,9 +69,17 @@ public class Management {
     //소비기한 계산
     public void mathUseByDate() {
         if (storageStatus == StorageStatus.FRIDGE) {
-            this.setUsebydate(LocalDate.now().plusDays(food.getJudgeUsdFridge()));
+            if (food.getJudgeUsdFridge() == 0) {
+                return;
+            } else {
+                this.setUsebydate(LocalDate.now().plusDays(food.getJudgeUsdFridge()));
+            }
         } else if (storageStatus == StorageStatus.FREEZER) {
-            this.setUsebydate(LocalDate.now().plusDays(food.getJudgeUsdFrozen()));
+            if (food.getJudgeUsdFrozen() == 0) {
+                return;
+            } else {
+                this.setUsebydate(LocalDate.now().plusDays(food.getJudgeUsdFrozen()));
+            }
         }
     }
 

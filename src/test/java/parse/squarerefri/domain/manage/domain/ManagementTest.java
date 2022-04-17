@@ -1,11 +1,13 @@
 package parse.squarerefri.domain.manage.domain;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Slf4j
 class ManagementTest {
 
     @Test
@@ -35,10 +37,43 @@ class ManagementTest {
 
         //when
         management.mathUseByDate();
-        System.out.println(management.getUsebydate());
 
         //then
         assertThat(management.getUsebydate()).isEqualTo(LocalDate.now().plusDays(15));
+    }
+
+    @Test
+    void 소비기한계산_냉장_기준기한이0인경우() {
+        //given
+        Food food = Food.builder().judgeUsdFridge(0).build();
+
+        Management management = new Management();
+        management.setStorageStatus(StorageStatus.FRIDGE);
+        management.setFood(food);
+
+        //when
+        management.mathUseByDate();
+        log.info(String.valueOf(management.getUsebydate()));
+
+        //then
+        assertThat(management.getUsebydate()).isNull();
+    }
+
+    @Test
+    void 소비기한계산_냉동_기준기한이0인경우() {
+        //given
+        Food food = Food.builder().judgeUsdFrozen(0).build();
+
+        Management management = new Management();
+        management.setStorageStatus(StorageStatus.FREEZER);
+        management.setFood(food);
+
+        //when
+        management.mathUseByDate();
+        log.info(String.valueOf(management.getUsebydate()));
+
+        //then
+        assertThat(management.getUsebydate()).isNull();
     }
 
     @Test
@@ -50,7 +85,6 @@ class ManagementTest {
 
         //when
         management.checkStatus();
-        System.out.println(management.getStatus());
 
         //then
         assertThat(management.getStatus()).isEqualTo(ManageStatus.GOOD);
@@ -65,7 +99,6 @@ class ManagementTest {
 
         //when
         management.checkStatus();
-        System.out.println(management.getStatus());
 
         //then
         assertThat(management.getStatus()).isEqualTo(ManageStatus.FINE);
@@ -80,7 +113,6 @@ class ManagementTest {
 
         //when
         management.checkStatus();
-        System.out.println(management.getStatus());
 
         //then
         assertThat(management.getStatus()).isEqualTo(ManageStatus.BAD);
@@ -95,7 +127,6 @@ class ManagementTest {
 
         //when
         management.checkStatus();
-        System.out.println(management.getStatus());
 
         //then
         assertThat(management.getStatus()).isEqualTo(ManageStatus.GOOD);
@@ -109,7 +140,6 @@ class ManagementTest {
 
         //when
         management.checkStatus();
-        System.out.println(management.getStatus());
 
         //then
         assertThat(management.getStatus()).isEqualTo(ManageStatus.BAD);
