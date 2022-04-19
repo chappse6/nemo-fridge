@@ -236,8 +236,33 @@ manage list
     display: inline;
     text-align: center;
     margin: 50px;
+    border-radius: 0.25rem 0.25rem 0 0;
 }
 
 .error-message a {
     color: #56d081;
+}
+
+/*
+read_more 페이지
+ */
+.readmoremain {
+    height: 95vh;
+}
+
+.pageimgdiv {
+    padding-top: 5%;
+    padding-bottom: 5%;
+    text-align: center;
+}
+
+@media (min-width: 1025px) {
+    .pageimgdiv {
+        padding: 5%;
+        text-align: center;
+    }
+}
+
+.pageimg {
+    width: 95%;
 }

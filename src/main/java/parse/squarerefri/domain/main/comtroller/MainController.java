@@ -12,6 +12,11 @@ public class MainController {
         return "index";
     }
 
+    @GetMapping("/read-more")
+    public String readMore() {
+        return "read_more";
+    }
+
     @GetMapping("/error/denied")
     public String errorDenied() {
         return "error/denied";
