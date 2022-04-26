@@ -6,9 +6,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import parse.squarerefri.domain.manage.domain.Food;
 import parse.squarerefri.domain.manage.domain.Management;
 import parse.squarerefri.domain.manage.domain.StorageStatus;
+import parse.squarerefri.domain.manage.exception.FoodNullException;
 import parse.squarerefri.domain.manage.model.ManageInput;
 import parse.squarerefri.domain.manage.repository.FoodRepository;
 import parse.squarerefri.domain.manage.repository.ManageRepository;
@@ -22,6 +24,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -63,6 +66,29 @@ class ManageServiceImplTest {
         verify(memberRepository).findById(anyString());
         verify(foodRepository).findByFood(anyString());
         verify(manageRepository).save(any(Management.class));
+    }
+
+    @Test
+    void 제품관리_등록_멤버예외() {
+        //given
+        when(memberRepository.findById(anyString())).thenReturn(Optional.of(Member.createMember(
+                MemberInput.builder().userId("test").userName("testName").password("pwd").build(),
+                "test", "test")));
+        ManageInput manageInput = ManageInput.builder()
+                .foodName("testFoodName").foodType("testFood").memberId("test").sellbydate(LocalDate.now().plusDays(5)).build();
+        //when
+        //then
+        assertThatThrownBy(() -> manageService.registManage(manageInput)).isInstanceOf(FoodNullException.class);
+    }
+
+    @Test
+    void 제품관리_등록_식품예외() {
+        //given
+        ManageInput manageInput = ManageInput.builder()
+                .foodName("testFoodName").foodType("testFood").memberId("test").sellbydate(LocalDate.now().plusDays(5)).build();
+        //when
+        //then
+        assertThatThrownBy(() -> manageService.registManage(manageInput)).isInstanceOf(UsernameNotFoundException.class);
     }
 
     @Test
