@@ -86,20 +86,30 @@ public class Management {
     //상품 상태 체크
     public void checkStatus() {
 
-        if (LocalDate.now().isBefore(sellbydate) || LocalDate.now().isEqual(sellbydate)) {
+        if (isBeforeSellbydate(this.sellbydate)) {
             this.setStatus(ManageStatus.GOOD);
         } else {
             this.setStatus(ManageStatus.BAD);
         }
 
         if (usebydate != null) {
-            if (LocalDate.now().isBefore(sellbydate) || LocalDate.now().isEqual(sellbydate)) {
+            if (isBeforeSellbydate(this.sellbydate)) {
                 this.setStatus(ManageStatus.GOOD);
-            } else if (LocalDate.now().isBefore(usebydate) || LocalDate.now().isEqual(usebydate)) {
+            } else if (isBeforeUsebydate(this.usebydate)) {
                 this.setStatus(ManageStatus.FINE);
             } else {
                 this.setStatus(ManageStatus.BAD);
             }
         }
+    }
+
+    //유통기한 이전인지 체크
+    public boolean isBeforeSellbydate(LocalDate sellbydate) {
+        return LocalDate.now().isBefore(sellbydate) || LocalDate.now().isEqual(sellbydate);
+    }
+
+    //소비기한 이전인지 체크
+    public boolean isBeforeUsebydate(LocalDate usebydate) {
+        return LocalDate.now().isBefore(usebydate) || LocalDate.now().isEqual(usebydate);
     }
 }
