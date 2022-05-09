@@ -15,7 +15,7 @@ cache:
 script: "./gradlew clean build"
 
 before_deploy:
-  - zip -r nemo-fridge *
+  - zip -r nemo-fridge * # 프로젝트 명으로 작성(압축)
   - mkdir -p deploy
   - mv nemo-fridge.zip deploy/nemo-fridge.zip
 
