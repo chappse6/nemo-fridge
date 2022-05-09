@@ -28,7 +28,6 @@ deploy:
     cleanup: true
     acl: public_read
     local_dir: deploy # before_deploy에서 생성한 디렉토리
-    wait_until_deployed: true
 
 # 성공 실패 여부 알림
 notifications:
