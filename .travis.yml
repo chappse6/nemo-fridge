@@ -12,7 +12,7 @@ cache:
     - '$HOME/.m2/repository'
     - '$HOME/.gradle'
 
-script: "./gradlew clean build"
+script: "./gradlew build"
 
 before_deploy:
   - zip -r nemo-fridge * # 프로젝트 명으로 작성(압축)
