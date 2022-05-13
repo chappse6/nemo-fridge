@@ -1,26 +1,26 @@
 package parse.squarerefri.domain.manage.service;
 
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import parse.squarerefri.domain.manage.domain.Food;
 import parse.squarerefri.domain.manage.domain.Management;
 import parse.squarerefri.domain.manage.domain.StorageStatus;
-import parse.squarerefri.domain.manage.exception.FoodNullException;
+import parse.squarerefri.domain.manage.exception.FoodException;
 import parse.squarerefri.domain.manage.model.ManageInput;
 import parse.squarerefri.domain.manage.repository.FoodRepository;
 import parse.squarerefri.domain.manage.repository.ManageRepository;
 import parse.squarerefri.domain.member.domain.Member;
+import parse.squarerefri.domain.member.exception.MemberException;
+import parse.squarerefri.domain.member.exception.MemberExceptionCode;
 import parse.squarerefri.domain.member.repository.MemberRepository;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-import static parse.squarerefri.domain.manage.domain.Management.createManage;
+import static parse.squarerefri.domain.manage.exception.FoodExceptionCode.NOT_FOUND_FOOD;
+import static parse.squarerefri.domain.member.exception.MemberExceptionCode.MEMBER_USERNAME_NOT_FOUND;
 
 @Service
 @Transactional
@@ -36,9 +36,9 @@ public class ManageServiceImpl implements ManageService {
     public String registManage(ManageInput parameter) {
 
         Member member = memberRepository.findById(parameter.getMemberId())
-                .orElseThrow(() -> new UsernameNotFoundException("회원 정보가 존재하지 않습니다."));
+                .orElseThrow(() -> new MemberException(MEMBER_USERNAME_NOT_FOUND));
         Food food = foodRepository.findByFood(parameter.getFoodType())
-                .orElseThrow(() -> new FoodNullException("제품 정보가 존재하지 않습니다."));
+                .orElseThrow(() -> new FoodException(NOT_FOUND_FOOD));
 
         Management management = Management.createManage(member, food, parameter);
         management.mathUseByDate();

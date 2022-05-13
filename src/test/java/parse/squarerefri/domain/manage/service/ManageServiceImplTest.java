@@ -10,11 +10,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import parse.squarerefri.domain.manage.domain.Food;
 import parse.squarerefri.domain.manage.domain.Management;
 import parse.squarerefri.domain.manage.domain.StorageStatus;
-import parse.squarerefri.domain.manage.exception.FoodNullException;
+import parse.squarerefri.domain.manage.exception.FoodException;
 import parse.squarerefri.domain.manage.model.ManageInput;
 import parse.squarerefri.domain.manage.repository.FoodRepository;
 import parse.squarerefri.domain.manage.repository.ManageRepository;
 import parse.squarerefri.domain.member.domain.Member;
+import parse.squarerefri.domain.member.exception.MemberException;
 import parse.squarerefri.domain.member.model.MemberInput;
 import parse.squarerefri.domain.member.repository.MemberRepository;
 
@@ -78,7 +79,7 @@ class ManageServiceImplTest {
                 .foodName("testFoodName").foodType("testFood").memberId("test").sellbydate(LocalDate.now().plusDays(5)).build();
         //when
         //then
-        assertThatThrownBy(() -> manageService.registManage(manageInput)).isInstanceOf(FoodNullException.class);
+        assertThatThrownBy(() -> manageService.registManage(manageInput)).isInstanceOf(FoodException.class);
     }
 
     @Test
@@ -88,7 +89,7 @@ class ManageServiceImplTest {
                 .foodName("testFoodName").foodType("testFood").memberId("test").sellbydate(LocalDate.now().plusDays(5)).build();
         //when
         //then
-        assertThatThrownBy(() -> manageService.registManage(manageInput)).isInstanceOf(UsernameNotFoundException.class);
+        assertThatThrownBy(() -> manageService.registManage(manageInput)).isInstanceOf(MemberException.class);
     }
 
     @Test
