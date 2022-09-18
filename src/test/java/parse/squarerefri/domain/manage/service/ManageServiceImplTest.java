@@ -43,11 +43,6 @@ class ManageServiceImplTest {
     @InjectMocks
     ManageServiceImpl manageService;
 
-    @BeforeEach
-    void setUp() {
-
-    }
-
     @Test
     void 제품관리_등록() {
         //given

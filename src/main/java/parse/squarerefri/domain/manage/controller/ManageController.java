@@ -25,6 +25,7 @@ public class ManageController {
 
     private final ManageService manageService;
 
+    //리스트 출력
     @GetMapping("/{storageStatus}/list")
     public String listOutput(@PathVariable("storageStatus") StorageStatus storageStatus,
                              @RequestParam(required = false) boolean deleteMode,
